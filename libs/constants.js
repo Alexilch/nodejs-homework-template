@@ -6,5 +6,16 @@ const HTTP_STATUS_CODE = {
     NOT_FOUND: 404,
     INTERNAL_SERVER_ERROR: 500,
   }
+
+  const Role = {
+    ADMIN: 'admin',
+    USER: 'user',
+  }
+
+  const Subscription = {
+    STARTER:"starter",
+    PRO: "pro",
+    BUSSINESS: "business"
+  }
   
-  module.exports = { HTTP_STATUS_CODE }
+  module.exports = { HTTP_STATUS_CODE, Role, Subscription }
