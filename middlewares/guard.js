@@ -25,7 +25,7 @@ const guard = async (req, res, next) => {
       message: 'Not authorized',
     })
   }
-  req.user = user // res.locals.user = user
+  req.user = user 
   next()
 }
 
@@ -37,4 +37,5 @@ const verifyToken = (token) => {
     return false
   }
 }
+
 module.exports = guard

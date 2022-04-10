@@ -17,7 +17,7 @@ class AuthService {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
-      role: newUser.role,
+      subscription: newUser.subscription,
     }
   }
 
@@ -26,7 +26,7 @@ class AuthService {
     if (!user) {
       throw new CustomError(
         HTTP_STATUS_CODE.UNAUTHORIZED,
-        'Invalid credentials',
+        'Email or password is wrong',
       )
     }
     const token = this.generateToken(user)
@@ -40,20 +40,18 @@ class AuthService {
 
   async getUser(email, password) {
     const user = await Users.findByEmail(email)
-
     if (!user) {
       return null
     }
-
     if (!(await user?.isValidPassword(password))) {
       return null
     }
-
     return user
   }
 
   generateToken(user) {
-    const payload = { id: user.id, name: user.name, role: user.role }
+    const payload = { id: user.id, email: user.email, subscription: user.subscription }
+    console.log(SECRET_KEY);
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '2h' })
     return token
   }
