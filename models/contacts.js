@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { Schema, model } = mongoose
 
   const contactSchema = new Schema({
-    name: {
+      name: {
         type: String,
         required: [true, 'Set name for contact'],
       },
@@ -15,9 +15,14 @@ const { Schema, model } = mongoose
       favorite: {
         type: Boolean,
         default: false,
+      },
+      owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
       }
     }, 
-  { versionKey: false },
+  { versionKey: false,
+   },
 )
 
   const Contact = model('contact', contactSchema)
