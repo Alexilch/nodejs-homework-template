@@ -4,8 +4,24 @@ const { CustomError } = require('../../middlewares/error-handler')
 
 class ContactsService {
   async getAll(query, user) {
-   const contacts = await Contacts.listContacts(query, user)
-    return contacts
+    const { limit = 20, skip = 0, sortBy, sortByDesc, filter } = query
+    let sortCriteria = null
+    let select = null
+    if (sortBy) {
+      sortCriteria = { [sortBy]: 1 }
+    }
+    if (sortByDesc) {
+      sortCriteria = { [sortByDesc]: -1 }
+    }
+    if (filter) {
+      select = filter.split('|').join(' ')
+    }
+    //  filter=name|age|date => 'name age date'
+    const result = await Contacts.listContacts(
+      { limit, skip, sortCriteria, select },
+      user,
+    )
+    return result
   }
 
   async getById(id, user) {
