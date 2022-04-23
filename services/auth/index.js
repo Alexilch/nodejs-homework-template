@@ -22,7 +22,7 @@ class AuthService {
       await emailService.sendEmail(
         newUser.email,
         newUser.name,
-        newUser.verifyEmailToken,
+        newUser.verificationToken,
       )
     } catch (error) {
       console.log(error)
