@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const gravatar = require('gravatar')
 const { Subscription } = require('../libs/constants')
 const { Schema, model } = mongoose
-
+const { randomUUID } = require('crypto')
 
   const userSchema = new Schema({
       name: { 
@@ -37,7 +37,16 @@ const { Schema, model } = mongoose
       token: {
         type: String,
         default: null,
-      }
+      },
+      verify: {
+        type: Boolean,
+        default: false,
+      },
+      verificationToken: {
+        type: String,
+        default: randomUUID(),
+        // required: [true, 'Verify token is required'],
+      },
     }, 
   { versionKey: false, 
     timestamps: true,
