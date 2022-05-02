@@ -7,9 +7,11 @@ const guard = require('../../../middlewares/guard')
 
 router.post('/signup', wrapperError(signup))
 router.post('/login', wrapperError(login))
-router.post('/logout', guard, wrapperError(logout))
 
 router.get('/users/verify/:verificationToken', wrapperError(verifyUser))
 router.post('/users/verify-email',  wrapperError(reverifyUser))
+
+router.post('/logout', guard, wrapperError(logout))
+
 
 module.exports = router

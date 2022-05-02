@@ -17,10 +17,6 @@ const create = async (body) => {
     return await user.save()
 }
 
-const verificationUser = async (id, token) => {
-    return await User.findByIdAndUpdate(id, { verify: true })
-}
-
 const updateToken = async (id, token) => {
     return await User.findByIdAndUpdate(id, { token })
 }
@@ -29,4 +25,8 @@ const updateAvatar = async (id, avatar, cloudId = null) => {
     return await User.findByIdAndUpdate(id, { avatar, cloudId }) 
   }
 
-module.exports = { findById, findByEmail, findByToken, create, verificationUser, updateToken, updateAvatar }
+const verificationUser = async (id) => {
+    return await User.findByIdAndUpdate(id, { verify: true,  })
+}
+
+module.exports = { findById, findByEmail, findByToken, create, updateToken, updateAvatar, verificationUser, }

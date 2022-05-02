@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const gravatar = require('gravatar')
+const { randomUUID } = require('crypto')
 const { Subscription } = require('../libs/constants')
 const { Schema, model } = mongoose
-const { randomUUID } = require('crypto')
 
   const userSchema = new Schema({
       name: { 
@@ -25,7 +25,7 @@ const { randomUUID } = require('crypto')
       },
       subscription: {
         type: String,
-        enum: { values: Object.values(Subscription) },
+        enum: { values: Object.values(Subscription), message: 'Invalid subscription!' },
         default: Subscription.STARTER,
       },
       avatarURL: {
@@ -64,7 +64,7 @@ const { randomUUID } = require('crypto')
     userSchema.pre('save', async function(next) {
         if (this.isModified('password')) {
             const salt = await bcrypt.genSalt(6)
-            console.log('salt', salt);
+            // console.log('salt', salt);
             this.password = await bcrypt.hash(this.password, salt)
         }
         next()
